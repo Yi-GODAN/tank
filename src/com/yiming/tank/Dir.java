@@ -6,5 +6,6 @@ package com.yiming.tank;
  * @Author: YiMing
  * @Created: 2020/09/22 17:50
  */
-public class Dir {
+public enum Dir {
+    LEFT, RIGHT, UP, DOWN
 }
