@@ -19,10 +19,12 @@ public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = 800;
     static final int GAME_HEIGHT = 600;
-    List<Bullet> bullets = new ArrayList<>();
 
-    Tank myTank = new Tank(200, 200, Dir.UP, this);
+    Tank myTank = new Tank(200, 400, Dir.UP, this);
     Bullet b = new Bullet(300, 300, Dir.DOWN, this);
+
+    List<Bullet> bullets = new ArrayList<>();
+    List<Tank> tanks = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -67,6 +69,10 @@ public class TankFrame extends Frame {
 
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
         }
     }
 
