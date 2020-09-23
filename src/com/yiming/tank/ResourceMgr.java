@@ -14,13 +14,19 @@ import java.io.IOException;
 public class ResourceMgr {
 
     public static BufferedImage tankL, tankU, tankR, tankD;
+    public static BufferedImage bulletL, bulletU, bulletR, bulletD;
 
     static {
         try {
-            tankL = ImageIO.read(new File("src\\images\\tankL.gif"));;
-            tankU = ImageIO.read(new File("src\\images\\tankU.gif"));;
-            tankR = ImageIO.read(new File("src\\images\\tankR.gif"));;
-            tankD = ImageIO.read(new File("src\\images\\tankD.gif"));;
+            tankL = ImageIO.read(new File("src\\images\\tankL.gif"));
+            tankU = ImageIO.read(new File("src\\images\\tankU.gif"));
+            tankR = ImageIO.read(new File("src\\images\\tankR.gif"));
+            tankD = ImageIO.read(new File("src\\images\\tankD.gif"));
+            bulletL = ImageIO.read(new File("src\\images\\bulletL.gif"));
+            bulletU = ImageIO.read(new File("src\\images\\bulletU.gif"));
+            bulletR = ImageIO.read(new File("src\\images\\bulletR.gif"));
+            bulletD = ImageIO.read(new File("src\\images\\bulletD.gif"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
