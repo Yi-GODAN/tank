@@ -20,8 +20,8 @@ public class Bullet {
     TankFrame tf = null;
 
     public Bullet(int x, int y, Dir dir, TankFrame tf) {
-        this.x = x;
-        this.y = y;
+        this.x = x + 15;
+        this.y = y + 15;
         this.dir = dir;
         this.tf = tf;
     }
@@ -54,5 +54,21 @@ public class Bullet {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
     }
 }

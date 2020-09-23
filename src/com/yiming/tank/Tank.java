@@ -9,10 +9,13 @@ import java.awt.*;
  * @Created: 2020/09/22 19:07
  */
 public class Tank {
-    private int x, y;
-    private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
+    private static int WIDTH = 50;
+    private static int HEIGHT = 50;
+    private int x, y;
+    private Dir dir = Dir.UP;
     private boolean moving = false;
+    private boolean live = true;
 
     private TankFrame tf = null;
 
@@ -28,10 +31,20 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(c);
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+        }
         move();
     }
 
@@ -52,12 +65,8 @@ public class Tank {
         }
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
+    public void fire() {
+        tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.tf));
     }
 
     public boolean isMoving() {
@@ -68,7 +77,27 @@ public class Tank {
         this.moving = moving;
     }
 
-    public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.tf));
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
     }
 }

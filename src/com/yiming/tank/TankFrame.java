@@ -1,6 +1,7 @@
 package com.yiming.tank;
 
 import java.awt.*;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -18,9 +19,9 @@ public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = 800;
     static final int GAME_HEIGHT = 600;
-    List<Bullet> bullets = new ArrayList<Bullet>();
+    List<Bullet> bullets = new ArrayList<>();
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    Tank myTank = new Tank(200, 200, Dir.UP, this);
     Bullet b = new Bullet(300, 300, Dir.DOWN, this);
 
     public TankFrame() {
@@ -55,7 +56,6 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage, 0, 0, null);
     }
 
-
     @Override
     public void paint(Graphics g) {
         Color c = g.getColor();
@@ -64,6 +64,7 @@ public class TankFrame extends Frame {
         g.setColor(c);
 
         myTank.paint(g);
+
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
