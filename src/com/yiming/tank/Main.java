@@ -13,7 +13,7 @@ public class Main {
 
         //初始化坦克
         for (int i = 0; i < 5; i++) {
-            tf.tanks.add(new Tank(100 + i*80, 50, Dir.DOWN, tf));
+            tf.tanks.add(new Tank(100 + i * 80, 50, Dir.DOWN, Group.BAD, tf));
         }
 
         while (true) {

@@ -9,21 +9,23 @@ import java.awt.*;
  * @Created: 2020/09/22 21:20
  */
 public class Bullet {
-    private static final int SPEED = 7;
+    private static final int SPEED = 2;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    private int x,y;
+    private int x, y;
     private Dir dir;
 
     private boolean living = true;
     TankFrame tf = null;
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -69,6 +71,9 @@ public class Bullet {
 
 
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) return;
+
+        //TODO：用一个rect来记录子弹的位置
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
         if (rect1.intersects(rect2)) {
@@ -79,5 +84,13 @@ public class Bullet {
 
     private void die() {
         this.living = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

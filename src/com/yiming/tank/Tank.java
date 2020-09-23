@@ -1,6 +1,7 @@
 package com.yiming.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @Program: tank
@@ -9,25 +10,31 @@ import java.awt.*;
  * @Created: 2020/09/22 19:07
  */
 public class Tank {
-    private static final int SPEED = 5;
+    private static final int SPEED = 3;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
-    private int x, y;
-    private Dir dir = Dir.UP;
-    private boolean moving = false;
-    private boolean living = true;
 
+    private Random random = new Random();
+
+    private int x, y;
+
+    private Dir dir = Dir.UP;
+
+    private boolean moving = true;
+    private boolean living = true;
     private TankFrame tf = null;
+    private Group group = Group.BAD;
 
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -68,12 +75,14 @@ public class Tank {
             case DOWN:
                 y += SPEED;
         }
+
+        if (random.nextInt(10) > 8) this.fire();
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH/2 - Bullet.HEIGHT/2;
-        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.HEIGHT / 2;
+        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
     }
 
     public boolean isMoving() {
@@ -98,5 +107,13 @@ public class Tank {
 
     public int getY() {
         return y;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
