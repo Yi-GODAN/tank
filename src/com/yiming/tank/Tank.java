@@ -15,7 +15,7 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.UP;
     private boolean moving = false;
-    private boolean live = true;
+    private boolean living = true;
 
     private TankFrame tf = null;
 
@@ -31,6 +31,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!living) tf.tanks.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -46,6 +47,10 @@ public class Tank {
                 break;
         }
         move();
+    }
+
+    public void die() {
+        this.living = false;
     }
 
     private void move() {
@@ -94,6 +99,4 @@ public class Tank {
     public int getY() {
         return y;
     }
-
-
 }
