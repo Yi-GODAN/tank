@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class Tank {
     private static final int SPEED = 5;
-    private static int WIDTH = 50;
-    private static int HEIGHT = 50;
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private int x, y;
     private Dir dir = Dir.UP;
     private boolean moving = false;
@@ -66,7 +66,9 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.tf));
+        int bX = this.x + Tank.WIDTH/2 - Bullet.HEIGHT/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
     }
 
     public boolean isMoving() {
@@ -93,11 +95,5 @@ public class Tank {
         return y;
     }
 
-    public static int getWIDTH() {
-        return WIDTH;
-    }
 
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
 }

@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class Bullet {
     private static final int SPEED = 7;
-    private static int WIDTH = 20;
-    private static int HEIGHT = 20;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     private int x,y;
     private Dir dir;
@@ -20,8 +20,8 @@ public class Bullet {
     TankFrame tf = null;
 
     public Bullet(int x, int y, Dir dir, TankFrame tf) {
-        this.x = x + 20;
-        this.y = y + 22;
+        this.x = x;
+        this.y = y;
         this.dir = dir;
         this.tf = tf;
     }
@@ -75,11 +75,4 @@ public class Bullet {
         return y;
     }
 
-    public static int getWIDTH() {
-        return WIDTH;
-    }
-
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
 }
