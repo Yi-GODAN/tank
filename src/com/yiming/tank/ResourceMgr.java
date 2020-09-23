@@ -19,14 +19,14 @@ public class ResourceMgr {
 
     static {
         try {
-            tankL = ImageIO.read(new File("src\\images\\tankL.gif"));
-            tankU = ImageIO.read(new File("src\\images\\tankU.gif"));
-            tankR = ImageIO.read(new File("src\\images\\tankR.gif"));
-            tankD = ImageIO.read(new File("src\\images\\tankD.gif"));
-            bulletL = ImageIO.read(new File("src\\images\\bulletL.gif"));
-            bulletU = ImageIO.read(new File("src\\images\\bulletU.gif"));
-            bulletR = ImageIO.read(new File("src\\images\\bulletR.gif"));
-            bulletD = ImageIO.read(new File("src\\images\\bulletD.gif"));
+            tankU = ImageIO.read(new File("src\\images\\BadTank1.png"));
+            tankL = ImageUtil.rotateImage(tankU, -90);
+            tankR = ImageUtil.rotateImage(tankU, 90);
+            tankD = ImageUtil.rotateImage(tankU, 180);
+            bulletU = ImageIO.read(new File("src\\images\\bulletU.png"));
+            bulletL = ImageUtil.rotateImage(bulletU, -90);
+            bulletR = ImageUtil.rotateImage(bulletU, 90);
+            bulletD = ImageUtil.rotateImage(bulletU, 180);
 
             for (int i = 0; i < 16; i++) {
                 explodes[i] = ImageIO.read(new File("src\\images\\e" + (i + 1) + ".gif"));

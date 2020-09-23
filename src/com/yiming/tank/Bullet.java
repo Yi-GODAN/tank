@@ -9,7 +9,7 @@ import java.awt.*;
  * @Created: 2020/09/22 21:20
  */
 public class Bullet {
-    private static final int SPEED = 2;
+    private static final int SPEED = 7;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 

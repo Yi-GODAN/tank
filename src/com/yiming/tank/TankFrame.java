@@ -18,14 +18,13 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = 800;
-    static final int GAME_HEIGHT = 600;
+    static final int GAME_HEIGHT = 700;
 
     Tank myTank = new Tank(200, 400, Dir.UP, Group.GOOD, this);
-    Bullet b = new Bullet(300, 300, Dir.DOWN, Group.GOOD, this);
 
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
-    Explode e = new Explode(100, 100, this);
+    List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -65,6 +64,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量" + bullets.size(), 10, 60);
         g.drawString("敌人的数量" + tanks.size(), 10, 80);
+        g.drawString("爆炸的数量" + explodes.size(), 10, 100);
         g.setColor(c);
 
         myTank.paint(g);
@@ -83,7 +83,10 @@ public class TankFrame extends Frame {
             }
         }
 
-        e.paint(g);
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+
     }
 
     // key listener

@@ -10,7 +10,7 @@ import java.util.Random;
  * @Created: 2020/09/22 19:07
  */
 public class Tank {
-    private static final int SPEED = 3;
+    private static final int SPEED = 5;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
@@ -20,7 +20,7 @@ public class Tank {
 
     private Dir dir = Dir.UP;
 
-    private boolean moving = true;
+    private boolean moving = false;
     private boolean living = true;
     private TankFrame tf = null;
     private Group group = Group.BAD;
@@ -56,10 +56,6 @@ public class Tank {
         move();
     }
 
-    public void die() {
-        this.living = false;
-    }
-
     private void move() {
         if (!moving) return;
         switch (dir) {
@@ -76,11 +72,18 @@ public class Tank {
                 y += SPEED;
         }
 
-        if (random.nextInt(10) > 8) this.fire();
+        //if (random.nextInt(10) > 8) this.fire();
+    }
+
+    public void die() {
+        this.living = false;
+        int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+        int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+        tf.explodes.add(new Explode(eX, eY, this.tf));
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.HEIGHT / 2;
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
     }
