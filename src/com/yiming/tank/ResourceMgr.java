@@ -2,7 +2,6 @@ package com.yiming.tank;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -20,21 +19,31 @@ public class ResourceMgr {
 
     static {
         try {
-            tankU = ImageIO.read(new File("src\\images\\GoodTank1.png"));
+//            tankU = ImageIO.read(new File("src\\images\\GoodTank1.png"));
+            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream(
+                    (String) PropertyMgr.get("GoodTank_Image")));
             tankL = ImageUtil.rotateImage(tankU, -90);
             tankR = ImageUtil.rotateImage(tankU, 90);
             tankD = ImageUtil.rotateImage(tankU, 180);
-            bTankU = ImageIO.read(new File("src\\images\\BadTank1.png"));
+
+//            bTankU = ImageIO.read(new File("src\\images\\BadTank1.png"));
+            bTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream(
+                    (String) PropertyMgr.get("BadTank_Image")));
             bTankL = ImageUtil.rotateImage(bTankU, -90);
             bTankR = ImageUtil.rotateImage(bTankU, 90);
             bTankD = ImageUtil.rotateImage(bTankU, 180);
-            bulletU = ImageIO.read(new File("src\\images\\bulletU.png"));
+
+//            bulletU = ImageIO.read(new File("src\\images\\bulletU.png"));
+            bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream(
+                    (String) PropertyMgr.get("Bullet_Image")));
             bulletL = ImageUtil.rotateImage(bulletU, -90);
             bulletR = ImageUtil.rotateImage(bulletU, 90);
             bulletD = ImageUtil.rotateImage(bulletU, 180);
 
             for (int i = 0; i < 16; i++) {
-                explodes[i] = ImageIO.read(new File("src\\images\\e" + (i + 1) + ".gif"));
+//                explodes[i] = ImageIO.read(new File("src\\images\\e" + (i + 1) + ".gif"));
+                explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream(
+                        "images/e" + (i + 1) + ".gif"));
             }
 
         } catch (IOException e) {

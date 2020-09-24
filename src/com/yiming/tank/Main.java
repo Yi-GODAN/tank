@@ -11,10 +11,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tf = new TankFrame();
 
-        int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
+        int TankCount = Integer.parseInt((String) PropertyMgr.get("TankCount"));
 
         //初始化坦克
-        for (int i = 0; i < initTankCount; i++) {
+        for (int i = 0; i < TankCount; i++) {
             tf.tanks.add(new Tank(100 + i * 80, 50, Dir.DOWN, Group.BAD, tf));
         }
 

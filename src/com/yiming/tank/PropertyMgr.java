@@ -10,7 +10,15 @@ import java.util.Properties;
  * @Created: 2020/09/24 10:54
  */
 public class PropertyMgr {
-    static Properties props = new Properties();
+    private static final PropertyMgr INSTANCE = new PropertyMgr();
+
+    PropertyMgr() {}
+
+    private static PropertyMgr getInstance() {
+        return INSTANCE;
+    }
+
+    private static Properties props = new Properties();
 
     static {
         try {
@@ -25,12 +33,4 @@ public class PropertyMgr {
         return props.get(key);
     }
 
-    public static void main(String[] args) throws IOException {
-System.out.println(PropertyMgr.class.getResource("/config.properties").getPath());
-System.out.println(PropertyMgr.class.getClassLoader().getResource("config.properties").getPath());
-System.out.println(PropertyMgr.class.getClassLoader().getResourceAsStream("config.properties"));
-System.out.println(PropertyMgr.class.getClassLoader().getResourceAsStream("config.properties").read());
-
-        System.out.println(PropertyMgr.get("initTankCount"));
-    }
 }

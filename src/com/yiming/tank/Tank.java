@@ -10,7 +10,7 @@ import java.util.Random;
  * @Created: 2020/09/22 19:07
  */
 public class Tank {
-    private static final int SPEED = 2;
+    private int SPEED = Integer.parseInt((String) PropertyMgr.get("TankSpeed"));
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
