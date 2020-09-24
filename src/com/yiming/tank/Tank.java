@@ -73,16 +73,21 @@ public class Tank {
             case DOWN:
                 y += SPEED;
         }
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            x = 200;
-            y = 400;
-        }
 
         if (this.group == group.BAD && random.nextInt(100) > 96)
             this.fire();
 
         if (this.group == group.BAD && random.nextInt(100) > 97)
             randomDir();
+
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if (this.x < 2) x = 2;
+        if (this.y < 32) y = 32;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomDir() {
