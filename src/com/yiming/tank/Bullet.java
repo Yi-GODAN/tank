@@ -17,8 +17,11 @@ public class Bullet {
     private Dir dir;
 
     private boolean living = true;
-    TankFrame tf = null;
+    private TankFrame tf = null;
     private Group group = Group.BAD;
+
+    //    private Rectangle rect = new Rectangle();
+    private Rectangle rect = null;
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -26,6 +29,12 @@ public class Bullet {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        rect = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
+        /*rect.x = this.x;
+        rect.y = this.y;
+        rect.width = Bullet.WIDTH;
+        rect.height = Bullet.HEIGHT;*/
     }
 
     public void paint(Graphics g) {
@@ -67,23 +76,21 @@ public class Bullet {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+
+        // update rect
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
 
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup()) return;
 
-        //TODO：用一个rect来记录子弹的位置
-        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if (rect1.intersects(rect2)) {
+        //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
+        if (rect.intersects(tank.getRect())) {
             tank.die();
             this.die();
         }
-       /*if (rect1.x == tank.getX() & rect1.y == tank.getY() & rect1.width == Tank.WIDTH & rect1.height == Tank.WIDTH) {
-            tank.die();
-            this.die();
-        }*/
     }
 
     private void die() {

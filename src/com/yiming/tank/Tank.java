@@ -25,6 +25,9 @@ public class Tank {
     private TankFrame tf = null;
     private Group group = Group.BAD;
 
+    //    private Rectangle rect = new Rectangle();
+    private Rectangle rect = null;
+
     public Tank() {
     }
 
@@ -35,6 +38,12 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        rect = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
+        /*rect.x = this.x;
+        rect.y = this.y;
+        rect.width = Tank.WIDTH;
+        rect.height = Tank.HEIGHT;*/
     }
 
     public void paint(Graphics g) {
@@ -81,6 +90,10 @@ public class Tank {
             randomDir();
 
         boundsCheck();
+
+        // update rect
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     private void boundsCheck() {
@@ -105,6 +118,10 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+    }
+
+    public Rectangle getRect() {
+        return rect;
     }
 
     public boolean isMoving() {
