@@ -25,22 +25,16 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-        //new Audio("src\\audio\\explode.wav").play();
+//        new Thread(() -> new Audio("src\\audio\\explode.wav").play()).start();
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.explodes.remove(this);
-
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 
         if (step >= ResourceMgr.explodes.length) {
-            step = 0;
+            tf.explodes.remove(this);
         }
 
-        count++;
-        if (count == 15){
-            this.living = false;
-        }
     }
 
     public int getX() {

@@ -9,7 +9,7 @@ import java.awt.*;
  * @Created: 2020/09/22 21:20
  */
 public class Bullet {
-    private static final int SPEED = 7;
+    private static final int SPEED = 5;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -80,6 +80,10 @@ public class Bullet {
             tank.die();
             this.die();
         }
+       /*if (rect1.x == tank.getX() & rect1.y == tank.getY() & rect1.width == Tank.WIDTH & rect1.height == Tank.WIDTH) {
+            tank.die();
+            this.die();
+        }*/
     }
 
     private void die() {

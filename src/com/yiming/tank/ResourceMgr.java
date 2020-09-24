@@ -14,15 +14,20 @@ import java.io.IOException;
 public class ResourceMgr {
 
     public static BufferedImage tankL, tankU, tankR, tankD;
+    public static BufferedImage bTankL, bTankU, bTankR, bTankD;
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
 
     static {
         try {
-            tankU = ImageIO.read(new File("src\\images\\BadTank1.png"));
+            tankU = ImageIO.read(new File("src\\images\\GoodTank1.png"));
             tankL = ImageUtil.rotateImage(tankU, -90);
             tankR = ImageUtil.rotateImage(tankU, 90);
             tankD = ImageUtil.rotateImage(tankU, 180);
+            bTankU = ImageIO.read(new File("src\\images\\BadTank1.png"));
+            bTankL = ImageUtil.rotateImage(bTankU, -90);
+            bTankR = ImageUtil.rotateImage(bTankU, 90);
+            bTankD = ImageUtil.rotateImage(bTankU, 180);
             bulletU = ImageIO.read(new File("src\\images\\bulletU.png"));
             bulletL = ImageUtil.rotateImage(bulletU, -90);
             bulletR = ImageUtil.rotateImage(bulletU, 90);

@@ -15,7 +15,7 @@ public class Audio {
 
 	byte[] b = new byte[1024 * 1024 * 15];
 
-	
+
 	public void loop() {
 		try {
 
@@ -53,7 +53,7 @@ public class Audio {
 			dataLine_info = new DataLine.Info(SourceDataLine.class, audioFormat);
 			sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLine_info);
 			//FloatControl volctrl=(FloatControl)sourceDataLine.getControl(FloatControl.Type.MASTER_GAIN);   
-			//volctrl.setValue(-40);// 
+			//volctrl.setValue(-40);//
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,8 +80,6 @@ public class Audio {
 			e.printStackTrace();
 		}
 	}
-
-	
 
 	public void close() {
 		try {

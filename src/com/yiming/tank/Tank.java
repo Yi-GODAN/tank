@@ -10,7 +10,7 @@ import java.util.Random;
  * @Created: 2020/09/22 19:07
  */
 public class Tank {
-    private static final int SPEED = 5;
+    private static final int SPEED = 2;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
@@ -20,7 +20,7 @@ public class Tank {
 
     private Dir dir = Dir.UP;
 
-    private boolean moving = false;
+    private boolean moving = true;
     private boolean living = true;
     private TankFrame tf = null;
     private Group group = Group.BAD;
@@ -39,20 +39,22 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) tf.tanks.remove(this);
+
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.tankL : ResourceMgr.bTankL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.tankU : ResourceMgr.bTankU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.tankR : ResourceMgr.bTankR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.tankD : ResourceMgr.bTankD, x, y, null);
                 break;
         }
+
         move();
     }
 
@@ -71,8 +73,20 @@ public class Tank {
             case DOWN:
                 y += SPEED;
         }
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            x = 200;
+            y = 400;
+        }
 
-        //if (random.nextInt(10) > 8) this.fire();
+        if (this.group == group.BAD && random.nextInt(100) > 96)
+            this.fire();
+
+        if (this.group == group.BAD && random.nextInt(100) > 97)
+            randomDir();
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void die() {
