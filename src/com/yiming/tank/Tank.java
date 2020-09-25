@@ -1,6 +1,7 @@
 package com.yiming.tank;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -16,17 +17,19 @@ public class Tank {
 
     private Random random = new Random();
 
-    private int x, y;
+    int x, y;
 
-    private Dir dir = Dir.UP;
+    Dir dir = Dir.UP;
 
     private boolean moving = true;
     private boolean living = true;
-    private TankFrame tf = null;
-    private Group group = Group.BAD;
+    TankFrame tf = null;
+    Group group = Group.BAD;
 
     //    private Rectangle rect = new Rectangle();
     private Rectangle rect = null;
+
+    FireStrategy fs = null;
 
     public Tank() {
     }
@@ -44,6 +47,38 @@ public class Tank {
         rect.y = this.y;
         rect.width = Tank.WIDTH;
         rect.height = Tank.HEIGHT;*/
+
+        if (this.group == Group.GOOD) {
+            try {
+                String goodName = (String)PropertyMgr.get("GoodFS");
+                fs = (FireStrategy) Class.forName(goodName).getDeclaredConstructor().newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String badName = (String)PropertyMgr.get("BadFS");
+            try {
+                fs = (FireStrategy) Class.forName(badName).getDeclaredConstructor().newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void paint(Graphics g) {
@@ -115,9 +150,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        fs.fire(this);
     }
 
     public Rectangle getRect() {

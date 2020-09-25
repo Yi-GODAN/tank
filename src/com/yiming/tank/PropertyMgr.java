@@ -12,9 +12,9 @@ import java.util.Properties;
 public class PropertyMgr {
     private static final PropertyMgr INSTANCE = new PropertyMgr();
 
-    PropertyMgr() {}
+    private PropertyMgr() {}
 
-    private static PropertyMgr getInstance() {
+    public static PropertyMgr getInstance() {
         return INSTANCE;
     }
 

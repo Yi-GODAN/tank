@@ -47,8 +47,8 @@ public class Audio {
 
 	public Audio(String fileName) {
 		try {
-//			audioInputStream = AudioSystem.getAudioInputStream(Audio.class.getClassLoader().getResource(fileName));
-			audioInputStream = AudioSystem.getAudioInputStream(new File(fileName));
+			audioInputStream = AudioSystem.getAudioInputStream(Audio.class.getClassLoader().getResource(fileName));
+//			audioInputStream = AudioSystem.getAudioInputStream(new File(fileName));
 			audioFormat = audioInputStream.getFormat();
 			dataLine_info = new DataLine.Info(SourceDataLine.class, audioFormat);
 			sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLine_info);
