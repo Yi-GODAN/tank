@@ -95,6 +95,26 @@ public class Bullet {
         }
     }
 
+    public void collideWith2(BadTank tank) {
+        if (this.group == tank.group) return;
+
+        //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
+        if (rect.intersects(tank.getRect())) {
+            tank.die();
+            this.die();
+        }
+    }
+
+    public void collideWith3(GoodTank tank) {
+        if (this.group == tank.group) return;
+
+        //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
+        if (rect.intersects(tank.getRect())) {
+            tank.die();
+            this.die();
+        }
+    }
+
     private void die() {
         this.living = false;
     }

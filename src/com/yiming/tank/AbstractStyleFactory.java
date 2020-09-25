@@ -6,6 +6,8 @@ package com.yiming.tank;
  * @Author: YiMing
  * @Created: 2020/09/25 17:34
  */
-public class AbstractStyleFactory {
-
+public abstract class AbstractStyleFactory {
+    abstract void tankStyle();
+    abstract void bulletStyle();
+    abstract void ExplodeStyle();
 }

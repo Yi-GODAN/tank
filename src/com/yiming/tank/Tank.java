@@ -31,6 +31,8 @@ public class Tank {
 
     FireStrategy fs = null;
 
+    AbstractStyleFactory f = new GoodStyle1Factory();
+
     public Tank() {
     }
 
