@@ -20,39 +20,35 @@ public class Tank {
     int x, y;
 
     Dir dir = Dir.UP;
+    Group group = Group.BAD;
 
     private boolean moving = true;
     private boolean living = true;
-    TankFrame tf = null;
-    Group group = Group.BAD;
 
-    //    private Rectangle rect = new Rectangle();
-    private Rectangle rect = null;
+    private Rectangle rect = new Rectangle();
 
     FireStrategy fs = null;
-
-    AbstractStyleFactory f = new GoodStyle1Factory();
+    GameModule gm = null;
 
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModule gm) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
 
-        rect = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
-        /*rect.x = this.x;
+        rect.x = this.x;
         rect.y = this.y;
         rect.width = Tank.WIDTH;
-        rect.height = Tank.HEIGHT;*/
+        rect.height = Tank.HEIGHT;
 
         if (this.group == Group.GOOD) {
             try {
-                String goodName = (String)PropertyMgr.get("GoodFS");
+                String goodName = (String) PropertyMgr.get("GoodFS");
                 fs = (FireStrategy) Class.forName(goodName).getDeclaredConstructor().newInstance();
             } catch (InstantiationException e) {
                 e.printStackTrace();
@@ -66,7 +62,7 @@ public class Tank {
                 e.printStackTrace();
             }
         } else {
-            String badName = (String)PropertyMgr.get("BadFS");
+            String badName = (String) PropertyMgr.get("BadFS");
             try {
                 fs = (FireStrategy) Class.forName(badName).getDeclaredConstructor().newInstance();
             } catch (InstantiationException e) {
@@ -84,7 +80,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.tanks.remove(this);
+        if (!living) gm.tanks.remove(this);
 
         switch (dir) {
             case LEFT:
@@ -148,7 +144,7 @@ public class Tank {
         this.living = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        tf.explodes.add(new Explode(eX, eY, this.tf));
+        gm.explodes.add(new Explode(eX, eY, this.gm));
     }
 
     public void fire() {

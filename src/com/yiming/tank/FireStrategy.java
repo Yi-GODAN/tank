@@ -8,6 +8,4 @@ package com.yiming.tank;
  */
 public interface FireStrategy {
     void fire(Tank tank);
-    void fire(GoodTank tank);
-    void fire(BadTank tank);
 }

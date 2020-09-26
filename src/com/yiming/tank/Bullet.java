@@ -17,17 +17,17 @@ public class Bullet {
     private Dir dir;
 
     private boolean living = true;
-    private TankFrame tf = null;
+    private GameModule gm = null;
     private Group group = Group.BAD;
 
     //    private Rectangle rect = new Rectangle();
     private Rectangle rect = null;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModule gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
 
         rect = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
@@ -36,12 +36,12 @@ public class Bullet {
         rect.width = Bullet.WIDTH;
         rect.height = Bullet.HEIGHT;*/
 
-        tf.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
         if (!living) {
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         }
 
         switch (dir) {
@@ -95,25 +95,6 @@ public class Bullet {
         }
     }
 
-    public void collideWith2(BadTank tank) {
-        if (this.group == tank.group) return;
-
-        //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
-        if (rect.intersects(tank.getRect())) {
-            tank.die();
-            this.die();
-        }
-    }
-
-    public void collideWith3(GoodTank tank) {
-        if (this.group == tank.group) return;
-
-        //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
-        if (rect.intersects(tank.getRect())) {
-            tank.die();
-            this.die();
-        }
-    }
 
     private void die() {
         this.living = false;
