@@ -1,4 +1,6 @@
-package com.yiming.tank;
+package com.yiming.tank.Base;
+
+import com.yiming.tank.*;
 
 import java.awt.*;
 import java.util.Random;
@@ -11,27 +13,27 @@ import java.util.Random;
  */
 public abstract class AbstractTank {
 
-    protected int SPEED = Integer.parseInt((String) PropertyMgr.get("TankSpeed"));
+    public int SPEED = Integer.parseInt((String) PropertyMgr.get("TankSpeed"));
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
-    int x, y;
+    public int x, y;
 
-    TankFrame tf = null;
-    Rectangle rect = null;
-    FireStrategy fs = null;
+    public TankFrame tf = null;
+    public Rectangle rect = null;
+    public FireStrategy fs = null;
 
-    abstract void paint(Graphics g);
+    public abstract void paint(Graphics g);
 
-    abstract void move();
+    public abstract void move();
 
-    abstract void die();
+    public abstract void die();
 
-    abstract void fire();
+    public abstract void fire();
 
-    abstract Rectangle getRect();
+    public abstract Rectangle getRect();
 
-    void boundsCheck() {
+    public void boundsCheck() {
         if (this.x < 2) x = 2;
         if (this.y < 32) y = 32;
         if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;

@@ -1,5 +1,8 @@
 package com.yiming.tank;
 
+import com.yiming.tank.basestylefactory.AbstractStyleFactory;
+import com.yiming.tank.basestylefactory.goodstylefactory.GoodStyleFactory;
+
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
@@ -31,7 +34,7 @@ public class Tank {
 
     FireStrategy fs = null;
 
-    AbstractStyleFactory f = new GoodStyle1Factory();
+    AbstractStyleFactory f = new GoodStyleFactory();
 
     public Tank() {
     }

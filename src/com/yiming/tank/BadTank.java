@@ -1,5 +1,9 @@
 package com.yiming.tank;
 
+import com.yiming.tank.Base.AbstractTank;
+import com.yiming.tank.basestylefactory.AbstractStyleFactory;
+import com.yiming.tank.basestylefactory.badstylefactory.BadStyleFactory;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -18,6 +22,8 @@ public class BadTank extends AbstractTank {
 
     Dir dir = Dir.UP;
     Group group = Group.BAD;
+
+    AbstractStyleFactory badStyle = new BadStyleFactory();
 
     BadTank() {
     }
@@ -47,16 +53,16 @@ public class BadTank extends AbstractTank {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bTankL, x, y, null);
+                g.drawImage(badStyle.tankStyle().getTankL(), x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bTankU, x, y, null);
+                g.drawImage(badStyle.tankStyle().getTankU(), x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bTankR, x, y, null);
+                g.drawImage(badStyle.tankStyle().getTankR(), x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bTankD, x, y, null);
+                g.drawImage(badStyle.tankStyle().getTankD(), x, y, null);
                 break;
         }
 
@@ -64,7 +70,7 @@ public class BadTank extends AbstractTank {
     }
 
     @Override
-    void move() {
+    public void move() {
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -94,15 +100,15 @@ public class BadTank extends AbstractTank {
     }
 
     @Override
-    void die() {
+    public void die() {
         this.living = false;
-        int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-        int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        tf.explodes.add(new Explode(eX, eY, this.tf));
+        int eX = this.x + Tank.WIDTH / 2 - BadExplode.WIDTH / 2;
+        int eY = this.y + Tank.HEIGHT / 2 - BadExplode.HEIGHT / 2;
+        tf.badExplodes.add(new BadExplode(eX, eY, this.tf));
     }
 
     @Override
-    void fire() {
+    public void fire() {
         fs.fire(this);
     }
 

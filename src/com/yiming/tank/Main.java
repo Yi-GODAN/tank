@@ -17,7 +17,7 @@ public class Main {
         /*for (int i = 0; i < TankCount; i++) {
             tf.tanks.add(new Tank(100 + i * 80, 50, Dir.DOWN, Group.BAD, tf));
         }*/
-
+//        tf.goodTanks.addAll(0, new GoodTankFactory().getInstance(tf));
 
         tf.badTanks.addAll(0, new BadTankFactory().getInstance(tf));
 

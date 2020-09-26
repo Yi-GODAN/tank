@@ -1,7 +1,10 @@
 package com.yiming.tank;
 
+import com.yiming.tank.Base.AbstractTank;
+import com.yiming.tank.basestylefactory.AbstractStyleFactory;
+import com.yiming.tank.basestylefactory.goodstylefactory.GoodStyleFactory;
+
 import java.awt.*;
-import java.util.Random;
 
 /**
  * @Program: tank
@@ -16,6 +19,8 @@ public class GoodTank extends AbstractTank {
 
     Dir dir = Dir.UP;
     Group group = Group.GOOD;
+
+    AbstractStyleFactory goodStyle = new GoodStyleFactory();
 
     GoodTank() {
     }
@@ -41,21 +46,21 @@ public class GoodTank extends AbstractTank {
 
 
     @Override
-    void paint(Graphics g) {
-//        if (!living) tf.myTank.remove(this);
+    public void paint(Graphics g) {
+        if (!living) tf.myTank=null;
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(goodStyle.tankStyle().getTankL(), x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(goodStyle.tankStyle().getTankU(), x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(goodStyle.tankStyle().getTankR(), x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(goodStyle.tankStyle().getTankD(), x, y, null);
                 break;
         }
 
@@ -63,7 +68,7 @@ public class GoodTank extends AbstractTank {
     }
 
     @Override
-    void move() {
+    public void move() {
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -87,15 +92,15 @@ public class GoodTank extends AbstractTank {
     }
 
     @Override
-    void die() {
+    public void die() {
         this.living = false;
-        int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-        int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        tf.explodes.add(new Explode(eX, eY, this.tf));
+        int eX = this.x + Tank.WIDTH / 2 - GoodExplode.WIDTH / 2;
+        int eY = this.y + Tank.HEIGHT / 2 - GoodExplode.HEIGHT / 2;
+        tf.goodExplodes.add(new GoodExplode(eX, eY, this.tf));
     }
 
     @Override
-    void fire() {
+    public void fire() {
         fs.fire(this);
     }
 
