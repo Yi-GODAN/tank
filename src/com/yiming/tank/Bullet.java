@@ -8,8 +8,8 @@ import java.awt.*;
  * @Author: YiMing
  * @Created: 2020/09/22 21:20
  */
-public class Bullet {
-    private int SPEED = Integer.parseInt((String)PropertyMgr.get("BulletSpeed"));
+public class Bullet extends GameObject {
+    private int SPEED = Integer.parseInt((String) PropertyMgr.get("BulletSpeed"));
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -20,8 +20,7 @@ public class Bullet {
     private GameModule gm = null;
     private Group group = Group.BAD;
 
-    //    private Rectangle rect = new Rectangle();
-    private Rectangle rect = null;
+    private Rectangle rect = new Rectangle();
 
     public Bullet(int x, int y, Dir dir, Group group, GameModule gm) {
         this.x = x;
@@ -30,18 +29,17 @@ public class Bullet {
         this.gm = gm;
         this.group = group;
 
-        rect = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
-        /*rect.x = this.x;
+        rect.x = this.x;
         rect.y = this.y;
         rect.width = Bullet.WIDTH;
-        rect.height = Bullet.HEIGHT;*/
+        rect.height = Bullet.HEIGHT;
 
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
 
         switch (dir) {
@@ -84,19 +82,19 @@ public class Bullet {
         rect.y = this.y;
     }
 
-
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return;
+    public boolean collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) return false;
 
         //TODO：用一个rect来记录子弹的位置 (已修复)：使tank和Bullet各自维护一个Rectangle
         if (rect.intersects(tank.getRect())) {
             tank.die();
             this.die();
+            return false;
         }
+        return true;
     }
 
-
-    private void die() {
+    public void die() {
         this.living = false;
     }
 
@@ -107,4 +105,9 @@ public class Bullet {
     public void setGroup(Group group) {
         this.group = group;
     }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
 }

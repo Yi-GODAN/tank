@@ -10,7 +10,7 @@ import java.util.Random;
  * @Author: YiMing
  * @Created: 2020/09/22 19:07
  */
-public class Tank {
+public class Tank extends GameObject{
     private int SPEED = Integer.parseInt((String) PropertyMgr.get("TankSpeed"));
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -23,13 +23,14 @@ public class Tank {
     Group group = Group.BAD;
 
     private boolean moving = true;
+
     private boolean living = true;
 
     private Rectangle rect = new Rectangle();
 
     FireStrategy fs = null;
-    GameModule gm = null;
 
+    GameModule gm = null;
     public Tank() {
     }
 
@@ -80,7 +81,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) gm.tanks.remove(this);
+        if (!living) gm.remove(this);
 
         switch (dir) {
             case LEFT:
@@ -144,11 +145,15 @@ public class Tank {
         this.living = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        gm.explodes.add(new Explode(eX, eY, this.gm));
+        gm.add(new Explode(eX, eY, this.gm));
     }
 
     public void fire() {
         fs.fire(this);
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 
     public Rectangle getRect() {
@@ -185,5 +190,13 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
     }
 }
