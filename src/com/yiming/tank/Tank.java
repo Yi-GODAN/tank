@@ -18,6 +18,7 @@ public class Tank extends GameObject{
     private Random random = new Random();
 
     int x, y;
+    int oldx, oldy;
 
     Dir dir = Dir.UP;
     Group group = Group.BAD;
@@ -26,20 +27,18 @@ public class Tank extends GameObject{
 
     private boolean living = true;
 
-    private Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     FireStrategy fs = null;
 
-    GameModule gm = null;
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, Group group, GameModule gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
 
         rect.x = this.x;
@@ -81,7 +80,7 @@ public class Tank extends GameObject{
     }
 
     public void paint(Graphics g) {
-        if (!living) gm.remove(this);
+        if (!living) GameModule.getInstance().remove(this);
 
         switch (dir) {
             case LEFT:
@@ -102,6 +101,9 @@ public class Tank extends GameObject{
     }
 
     private void move() {
+        this.oldx = this.x;
+        this.oldy = this.y;
+
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -133,8 +135,8 @@ public class Tank extends GameObject{
     private void boundsCheck() {
         if (this.x < 2) x = 2;
         if (this.y < 32) y = 32;
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        if (this.x > GameModule.GAME_WIDTH - Tank.WIDTH - 2) x = GameModule.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.y > GameModule.GAME_HEIGHT - Tank.HEIGHT - 2) y = GameModule.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomDir() {
@@ -145,7 +147,7 @@ public class Tank extends GameObject{
         this.living = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        gm.add(new Explode(eX, eY, this.gm));
+        GameModule.getInstance().add(new Explode(eX, eY));
     }
 
     public void fire() {
@@ -166,6 +168,11 @@ public class Tank extends GameObject{
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void back() {
+        x = oldx;
+        y = oldy;
     }
 
     public Dir getDir() {
@@ -199,4 +206,13 @@ public class Tank extends GameObject{
     public static int getHEIGHT() {
         return HEIGHT;
     }
+
+    public int getOldx() {
+        return oldx;
+    }
+
+    public int getOldy() {
+        return oldy;
+    }
+
 }

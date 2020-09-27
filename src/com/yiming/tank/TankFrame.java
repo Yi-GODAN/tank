@@ -14,14 +14,11 @@ import java.awt.event.WindowEvent;
  * @Created: 2020/09/22 10:55
  */
 public class TankFrame extends Frame {
-    GameModule gm = new GameModule();
-
-    static final int GAME_WIDTH = Integer.parseInt((String) PropertyMgr.get("GAME_WIDTH"));
-    static final int GAME_HEIGHT = Integer.parseInt((String) PropertyMgr.get("GAME_HEIGHT"));
+    GameModule gm = GameModule.getInstance();
 
     Image offScreenImage = null;
     public TankFrame() {
-        setSize(GAME_WIDTH, GAME_HEIGHT);
+        setSize(gm.GAME_WIDTH, gm.GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -39,12 +36,12 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
-            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+            offScreenImage = this.createImage(gm.GAME_WIDTH, gm.GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, gm.GAME_WIDTH, gm.GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);

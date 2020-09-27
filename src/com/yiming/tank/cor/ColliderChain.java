@@ -1,12 +1,9 @@
 package com.yiming.tank.cor;
 
 import com.yiming.tank.GameObject;
-import com.yiming.tank.PropertyMgr;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * @Program: tank
@@ -20,8 +17,10 @@ public class ColliderChain {
 
     public ColliderChain() {
         try {
-            add((Collider) Class.forName((String)PropertyMgr.get("BulletTank")).getDeclaredConstructor().newInstance());
-            add((Collider) Class.forName((String)PropertyMgr.get("TankTank")).getDeclaredConstructor().newInstance());
+            add(new BulletTankCollider());
+            add(new TankTankCollider());
+            add(new BulletWallCollider());
+            add(new TankWallCollider());
         } catch (Exception e) {
             e.printStackTrace();
         }
