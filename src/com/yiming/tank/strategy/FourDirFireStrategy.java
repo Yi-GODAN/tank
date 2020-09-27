@@ -1,4 +1,8 @@
-package com.yiming.tank;
+package com.yiming.tank.strategy;
+
+import com.yiming.tank.Bullet;
+import com.yiming.tank.Dir;
+import com.yiming.tank.Tank;
 
 /**
  * @Program: tank

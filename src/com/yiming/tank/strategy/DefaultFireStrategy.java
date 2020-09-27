@@ -1,4 +1,9 @@
-package com.yiming.tank;
+package com.yiming.tank.strategy;
+
+import com.yiming.tank.Bullet;
+import com.yiming.tank.Tank;
+import com.yiming.tank.decorator.RectDecorator;
+import com.yiming.tank.strategy.FireStrategy;
 
 /**
  * @Program: tank
@@ -12,7 +17,7 @@ public class DefaultFireStrategy implements FireStrategy {
     public void fire(Tank tank) {
         int bX = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        new Bullet(bX, bY, tank.dir, tank.group);
+        new RectDecorator(new Bullet(bX, bY, tank.dir, tank.group));
     }
 
 }

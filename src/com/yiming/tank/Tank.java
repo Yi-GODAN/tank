@@ -1,7 +1,14 @@
 package com.yiming.tank;
 
+import com.yiming.tank.observer.TankFireEvent;
+import com.yiming.tank.observer.TankFireHandler;
+import com.yiming.tank.observer.TankFireObserver;
+import com.yiming.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,11 +24,10 @@ public class Tank extends GameObject{
 
     private Random random = new Random();
 
-    int x, y;
     int oldx, oldy;
 
-    Dir dir = Dir.UP;
-    Group group = Group.BAD;
+    public Dir dir = Dir.UP;
+    public Group group = Group.BAD;
 
     private boolean moving = true;
 
@@ -98,6 +104,16 @@ public class Tank extends GameObject{
         }
 
         move();
+    }
+
+    @Override
+    public int getWight() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
@@ -215,4 +231,11 @@ public class Tank extends GameObject{
         return oldy;
     }
 
+    private List<TankFireObserver> fireObserver = Arrays.asList(new TankFireHandler());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver o : fireObserver) {
+            o.actionOnFire(event);
+        }
+    }
 }

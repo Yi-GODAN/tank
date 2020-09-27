@@ -83,12 +83,6 @@ public class GameModule extends Frame {
             }
         }
 
-        /*for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }*/
-
     }
 
 }
